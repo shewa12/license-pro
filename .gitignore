@@ -25,6 +25,6 @@ package-lock.json
 *.lock
 *.log
 *.map
-assets/js
+assets/js/*.js
 assets/css
 assets/languages
