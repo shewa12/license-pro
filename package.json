@@ -7,7 +7,7 @@
     "start": "webpack --watch",
     "build": "webpack",
     "make-pot": "wp i18n make-pot . assets/languages/license-pro.pot",
-    "plugin-build": "composer install --no-dev && npm run make-pot && npm run gulp-build"
+    "plugin-build": "composer install --no-dev && npm run make-pot && gulp build"
   },
   "author": "",
   "license": "ISC",
