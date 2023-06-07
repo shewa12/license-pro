@@ -1,0 +1,17 @@
+{
+    "name": "themeum/license-pro",
+    "description": "Product License Manager",
+    "autoload": {
+        "psr-4": {
+            "Themeum\\LicensePro\\": "inc/"
+        }
+    },
+    "authors": [
+        {
+            "name": "themeum",
+            "email": "support@themeum.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {}
+}
