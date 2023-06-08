@@ -15,8 +15,7 @@
 
 namespace Themeum;
 
-use Themeum\LicensePro\Admin\Init as AdminInit;
-use Themeum\LicensePro\Assets\Enqueue;
+use Themeum\LicensePro\Init;
 
 if ( ! class_exists( 'LicensePro' ) ) {
 
@@ -54,11 +53,13 @@ if ( ! class_exists( 'LicensePro' ) ) {
 			if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
 				include_once __DIR__ . '/vendor/autoload.php';
 			}
+
 			register_activation_hook( __FILE__, array( __CLASS__, 'register_activation' ) );
 			register_deactivation_hook( __FILE__, array( __CLASS__, 'register_deactivation' ) );
 			add_action( 'init', array( __CLASS__, 'load_textdomain' ) );
 
-			$this->load_packages();
+			// Initialize plugin.
+			new Init();
 		}
 
 		/**
@@ -109,7 +110,7 @@ if ( ! class_exists( 'LicensePro' ) ) {
 		 * @return void
 		 */
 		public static function register_activation() {
-			update_option( '_plugin_starter_install_time', time() );
+			update_option( '_license_pro_install_time', time() );
 		}
 
 		/**
@@ -130,16 +131,8 @@ if ( ! class_exists( 'LicensePro' ) ) {
 			load_plugin_textdomain( 'license-pro', false, dirname( plugin_basename( __FILE__ ) ) . '/assets/languages' );
 		}
 
-		/**
-		 * Load packages
-		 *
-		 * @return void
-		 */
-		public function load_packages() {
-			new Enqueue();
-			new AdminInit();
-		}
 	}
+
 	// trigger.
 	LicensePro::instance();
 }
