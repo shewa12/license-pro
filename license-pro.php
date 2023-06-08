@@ -15,6 +15,7 @@
 
 namespace Themeum;
 
+use Themeum\LicensePro\Database\Migration;
 use Themeum\LicensePro\Init;
 
 if ( ! class_exists( 'LicensePro' ) ) {
@@ -111,6 +112,9 @@ if ( ! class_exists( 'LicensePro' ) ) {
 		 */
 		public static function register_activation() {
 			update_option( '_license_pro_install_time', time() );
+
+			// Migrate DB.
+			Migration::migrate();
 		}
 
 		/**

@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * PackagesTable class for creating & dropping table
  */
-class PackagesTable extends DatabaseAbstract {
+class PackageTable extends DatabaseAbstract {
 
 	/**
 	 * Table name without prefix
@@ -27,7 +27,7 @@ class PackagesTable extends DatabaseAbstract {
 	 *
 	 * @var string
 	 */
-	private $name = 'packages';
+	private $name = 'lp_packages';
 
 	/**
 	 * This function sets the name property of an object to the WordPress
@@ -63,10 +63,10 @@ class PackagesTable extends DatabaseAbstract {
 	public function get_table_schema(): string {
 		$schema = "CREATE TABLE $this->name (
             id SMALLINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-            name VARCHAR(255),
-            domain_limit TINYINT UNSIGNED,
-            subdomain_limit TINYINT UNSIGNED,
-            validity_in_days SMALLINT UNSIGNED
+            name VARCHAR(255) NOT NULL,
+            domain_limit TINYINT UNSIGNED NOT NULL,
+            subdomain_limit TINYINT UNSIGNED NOT NULL,
+            validity_in_days SMALLINT UNSIGNED NOT NULL
         ) ENGINE = INNODB ";
 
 		return $schema;

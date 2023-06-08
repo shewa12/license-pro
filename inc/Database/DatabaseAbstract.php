@@ -46,7 +46,7 @@ abstract class DatabaseAbstract {
 	 *
 	 * @return void
 	 */
-	protected function create_table() {
+	public function create_table() {
 		do_action( 'license_pro_before_create_table' );
 		global $wpdb;
 
@@ -67,7 +67,7 @@ abstract class DatabaseAbstract {
 	 *
 	 * @return void
 	 */
-	protected function drop_table() {
+	public function drop_table() {
 		global $wpdb;
 
 		do_action( 'license_pro_before_drop_table' );
