@@ -4,7 +4,7 @@
   "description": "Product license manager",
   "main": "index.js",
   "scripts": {
-    "start": "webpack --watch",
+    "start": "NODE_ENV=development webpack --watch",
     "build": "webpack",
     "make-pot": "wp i18n make-pot . assets/languages/license-pro.pot",
     "plugin-build": "composer install --no-dev && npm run make-pot && gulp build"
