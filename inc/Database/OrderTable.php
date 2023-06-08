@@ -1,6 +1,6 @@
 <?php
 /**
- * The PackagesTable class defines a database table schema
+ * The ProductTable class defines a database table schema
  * for storing information about license packages.
  *
  * @package Themeum\LicensePro\Database
@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * PackagesTable class for creating & dropping table
  */
-class PackageTable extends DatabaseAbstract {
+class OrderTable extends DatabaseAbstract {
 
 	/**
 	 * Table name without prefix
@@ -27,7 +27,7 @@ class PackageTable extends DatabaseAbstract {
 	 *
 	 * @var string
 	 */
-	private $name = 'lp_packages';
+	private $name = 'lp_orders';
 
 	/**
 	 * This function sets the name property of an object to the WordPress
@@ -62,11 +62,23 @@ class PackageTable extends DatabaseAbstract {
 	 */
 	public function get_table_schema(): string {
 		$schema = "CREATE TABLE $this->name (
-            id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-            name VARCHAR(255) NOT NULL,
-            domain_limit TINYINT UNSIGNED NOT NULL,
-            subdomain_limit TINYINT UNSIGNED NOT NULL,
-            validity_in_days SMALLINT UNSIGNED NOT NULL
+            id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+            product_package_id INT,
+            user_id BIGINT UNSIGNED NOT NULL,
+            order_price DECIMAL(10, 2) NOT NULL,
+            regular_price DECIMAL(10, 2) NOT NULL,
+            coupon_id INT,
+            order_status ENUM('pending', 'completed', 'cancelled', 'refunded', 'partially_refunded', 'expired', 'upgraded') NOT NULL DEFAULT 'pending',
+            auto_renew BOOLEAN DEFAULT FALSE NOT NULL,
+            payment_gateway VARCHAR(255) NOT NULL,
+            payment_payload_data JSON,
+            order_note TEXT,
+            order_created DATETIME DEFAULT CURRENT_TIMESTAMP,
+            order_updated DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+            INDEX idx_product_package_id (product_package_id),
+            INDEX idx_user_id (user_id),
+            INDEX idx_order_status (order_status),
+            INDEX idx_order_created (order_created)
         ) ENGINE = INNODB ";
 
 		return $schema;

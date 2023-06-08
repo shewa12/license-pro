@@ -1,6 +1,6 @@
 <?php
 /**
- * The PackagesTable class defines a database table schema
+ * The ProductTable class defines a database table schema
  * for storing information about license packages.
  *
  * @package Themeum\LicensePro\Database
@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * PackagesTable class for creating & dropping table
  */
-class PackageTable extends DatabaseAbstract {
+class ProductPackageTable extends DatabaseAbstract {
 
 	/**
 	 * Table name without prefix
@@ -27,7 +27,7 @@ class PackageTable extends DatabaseAbstract {
 	 *
 	 * @var string
 	 */
-	private $name = 'lp_packages';
+	private $name = 'lp_product_package';
 
 	/**
 	 * This function sets the name property of an object to the WordPress
@@ -61,12 +61,17 @@ class PackageTable extends DatabaseAbstract {
 	 * domain_limit, subdomain_limit, and validity_in_days. The id column is set as the primary key.
 	 */
 	public function get_table_schema(): string {
+		$product_table = ( new ProductTable() )->get_table_name();
+		$package_table = ( new PackageTable() )->get_table_name();
+
 		$schema = "CREATE TABLE $this->name (
-            id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-            name VARCHAR(255) NOT NULL,
-            domain_limit TINYINT UNSIGNED NOT NULL,
-            subdomain_limit TINYINT UNSIGNED NOT NULL,
-            validity_in_days SMALLINT UNSIGNED NOT NULL
+            id INT PRIMARY KEY AUTO_INCREMENT,
+            product_id INT UNSIGNED NOT NULL,
+            package_id INT UNSIGNED NOT NULL,
+            regular_price DECIMAL(10, 2),
+            sale_price DECIMAL(10, 2),
+            FOREIGN KEY (product_id) REFERENCES {$product_table} (id),
+            FOREIGN KEY (package_id) REFERENCES {$package_table} (id)
         ) ENGINE = INNODB ";
 
 		return $schema;

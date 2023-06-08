@@ -1,6 +1,6 @@
 <?php
 /**
- * The PackagesTable class defines a database table schema
+ * The ProductTable class defines a database table schema
  * for storing information about license packages.
  *
  * @package Themeum\LicensePro\Database
@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * PackagesTable class for creating & dropping table
  */
-class PackageTable extends DatabaseAbstract {
+class ProductTable extends DatabaseAbstract {
 
 	/**
 	 * Table name without prefix
@@ -27,7 +27,7 @@ class PackageTable extends DatabaseAbstract {
 	 *
 	 * @var string
 	 */
-	private $name = 'lp_packages';
+	private $name = 'lp_products';
 
 	/**
 	 * This function sets the name property of an object to the WordPress
@@ -64,9 +64,8 @@ class PackageTable extends DatabaseAbstract {
 		$schema = "CREATE TABLE $this->name (
             id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
             name VARCHAR(255) NOT NULL,
-            domain_limit TINYINT UNSIGNED NOT NULL,
-            subdomain_limit TINYINT UNSIGNED NOT NULL,
-            validity_in_days SMALLINT UNSIGNED NOT NULL
+            description TEXT,
+            thumbnail_id INT UNSIGNED
         ) ENGINE = INNODB ";
 
 		return $schema;

@@ -41,7 +41,12 @@ class Migration {
 	private static function tables() {
 		$tables = array(
 			new PackageTable(),
+			new ProductTable(),
+			new ProductPackageTable(),
+			new OrderTable(),
+			new LicenseTable(),
 		);
+
 		return $tables;
 	}
 
