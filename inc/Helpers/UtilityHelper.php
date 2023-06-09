@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin utilities management
+ * Contains Plugin's utilities functions
  *
  * @package Themeum\LicensePro\Utils
  * @author  Themum<support@themeum.com>
@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Plugin's utilities
  */
-class Utilities {
+class UtilityHelper {
 
 	/**
 	 * Load template file
