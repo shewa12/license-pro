@@ -1,6 +1,6 @@
 <?php
 /**
- * Admin menu and page management
+ * Register admin main menu & sub-menu
  *
  * @package    Themeum\LicensePro\Admin
  * @subpackage Themeum\LicensePro\Admin\Menu
@@ -12,17 +12,16 @@
 namespace Themeum\LicensePro\Admin\Menu;
 
 use Themeum\LicensePro;
+use Themeum\LicensePro\Admin\Menu\SubMenu\Packages;
+use Themeum\LicensePro\Admin\Menu\SubMenu\Products;
+use Themeum\LicensePro\Admin\Menu\SubMenu\Orders;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
 /**
- * Create admin menu and page management
- *
- * @package LicensePro\Admin
- * @author Shewa <shewa12kpi@gmail.com>
- * @since 1.0.0
+ * Admin main menu & sub-menu management
  */
 class MainMenu {
 
@@ -143,10 +142,42 @@ class MainMenu {
 			$this->icon_name(),
 			$this->position()
 		);
+
 		do_action( 'license_pro_after_main_menu_register' );
-		// TODO Submenu.
+
+		$submenus = $this->submenu_factory();
+
+		// Register sub-menus.
+		foreach ( $submenus as $submenu ) {
+			add_submenu_page(
+				$this->slug(),
+				$submenu->page_title(),
+				$submenu->menu_title(),
+				$submenu->capability(),
+				$submenu->slug(),
+				array( $submenu, 'callback' )
+			);
+		}
 
 		do_action( 'license_pro_after_sub_menu_register' );
+	}
+
+	/**
+	 * The function creates an array of submenu objects for a menu.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return The function `submenu_factory()` is returning an array of objects that represent sub-menus.
+	 * The sub-menus are instances of the `Packages`, `Products`, and `Orders` classes.
+	 */
+	private function submenu_factory() {
+		$sub_menus = array(
+			new Packages(),
+			new Products(),
+			new Orders(),
+		);
+
+		return $sub_menus;
 	}
 }
 
